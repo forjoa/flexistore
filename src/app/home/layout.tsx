@@ -1,3 +1,4 @@
+import Nav from '@/components/home/Nav'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -5,10 +6,12 @@ export const metadata: Metadata = {
   description: 'A   completely customizable online store',
 }
 
-export default function LayoutHome({children}: Readonly<{children: React.ReactNode}>) {
+export default function LayoutHome({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <main>
-      <nav></nav>
+      <Nav />
       {children}
     </main>
   )
