@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function Nav() {
   return (
-    <nav className='flex items-center justify-between fixed top-0 h-[80px] w-full px-10'>
+    <nav className='flex items-center justify-between fixed top-0 h-[80px] w-full px-10 backdrop-blur-xl'>
       <Link href={'/home'} className='flex items-center gap-2'>
         <Image src={flexiLogo} alt='Logo' className='w-8' />
         <h1 className='font-bold text-3xl'>FlexiStore</h1>
