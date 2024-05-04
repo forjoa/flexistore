@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import flexiLogo from '../../../public/flexiLogo.svg'
+import flexiLogo from '../../../../public/flexiLogo.svg'
 import Link from 'next/link'
 
 export default function Nav() {
