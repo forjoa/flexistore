@@ -3,11 +3,12 @@
 import { FormEvent, FormEventHandler } from 'react'
 
 export default function ContactForm() {
-
   const onSubmit: FormEventHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const data = new FormData(e.target as HTMLFormElement)
+    const data = Object.fromEntries(
+      new FormData(e.target as HTMLFormElement).entries()
+    )
 
   }
 
