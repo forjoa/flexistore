@@ -1,7 +1,10 @@
 import Image from 'next/image'
 import placeholder from '@/assets/placeholder.svg'
+import { getAboutData } from '@/server/utils/getData'
 
-export default function AboutUs() {
+export default async function AboutUs() {
+  const { data } = await getAboutData()
+
   return (
     <div className='flex h-[80vh] py-[100px] gap-10'>
       <div className='w-1/2'>
@@ -12,16 +15,9 @@ export default function AboutUs() {
         />
       </div>
       <div className='w-1/2 h-full flex flex-col justify-center items-start gap-5'>
-        <h1 className='text-5xl font-bold'>About our e-commerce</h1>
+        <h1 className='text-5xl font-bold'>{data?.about_title}</h1>
         <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
-          debitis veritatis tempore, cum in pariatur necessitatibus optio nam
-          corrupti omnis natus, quasi consequatur fuga doloribus ad, nostrum
-          odio asperiores officiis. Lorem ipsum dolor, sit amet consectetur
-          adipisicing elit. Blanditiis sunt corporis, perferendis deleniti
-          cumque suscipit, voluptate accusantium dolorem est consectetur quasi.
-          Explicabo fuga officiis nostrum aspernatur, amet optio voluptatibus
-          maiores!
+          {data?.about_content}
         </p>
       </div>
     </div>
