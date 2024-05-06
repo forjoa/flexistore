@@ -8,6 +8,43 @@ export default function ContactUs() {
           the form below and we&apos;ll get back to you as soon as possible.
         </p>
       </div>
+      <div className='w-1/2'>
+        <form className='h-full flex flex-col justify-evenly'>
+          <div className='flex flex-col gap-2'>
+            <label htmlFor='name'>Name</label>
+            <input
+              type='text'
+              name='name'
+              placeholder='Enter your name'
+              className='p-4 rounded focus:outline-none focus:ring focus:border-blue-500 text-black'
+            />
+          </div>
+          <div className='flex flex-col gap-2'>
+            <label htmlFor='email'>Email</label>
+            <input
+              type='email'
+              name='email'
+              placeholder='Enter your email'
+              className='p-4 rounded focus:outline-none focus:ring focus:border-blue-500 text-black'
+            />
+          </div>
+          <div className='flex flex-col gap-2'>
+            <label htmlFor='message'>Message</label>
+            <textarea
+              name='message'
+              placeholder='Enter your message'
+              className='p-4 rounded focus:outline-none focus:ring focus:border-blue-500 text-black'
+            ></textarea>
+          </div>
+          <div>
+            <input
+              type='submit'
+              value='Send message'
+              className='bg-white text-black p-4 rounded'
+            />
+          </div>
+        </form>
+      </div>
     </div>
   )
 }
