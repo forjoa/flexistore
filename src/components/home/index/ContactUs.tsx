@@ -42,7 +42,7 @@ export default function ContactUs() {
             <input
               type='submit'
               value='Send message'
-              className='bg-white text-black p-4 rounded'
+              className='bg-white text-black p-4 rounded cursor-pointer transition-all hover:opacity-50'
             />
           </div>
         </form>
