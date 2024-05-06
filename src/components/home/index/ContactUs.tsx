@@ -1,3 +1,5 @@
+import { sendContactMessage } from "@/server/utils/functions";
+
 export default function ContactUs() {
   return (
     <div className='flex h-[80vh] py-[100px] gap-10'>
@@ -9,7 +11,7 @@ export default function ContactUs() {
         </p>
       </div>
       <div className='w-1/2'>
-        <form className='h-full flex flex-col justify-evenly'>
+        <form className='h-full flex flex-col justify-evenly' action={sendContactMessage}>
           <div className='flex flex-col gap-2'>
             <label htmlFor='name'>Name</label>
             <input
