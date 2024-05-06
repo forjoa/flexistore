@@ -1,6 +1,9 @@
 interface PresentationData {
-  id?: number
   presentation_title?: string
   presentation_slogan?: string
-  created_at?: string
+}
+
+interface AboutData {
+  about_title?: string
+  about_content?: string
 }
