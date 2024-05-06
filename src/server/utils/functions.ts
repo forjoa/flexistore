@@ -1,10 +1,7 @@
 import { supabase } from '../database/connection'
 
-export async function sendContactMessage(data: FormData) {
-  'use server'
-  const name = data.get('name')
-  const email = data.get('email')
-  const message = data.get('message')
+export async function sendContactMessage(data: ContactData) {
+  const { name, email, message } = data
 
   try {
     const { error } = await supabase
