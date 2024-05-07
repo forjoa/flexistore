@@ -2,7 +2,6 @@ import Main from '@/components/home/globals/Main'
 import Image from 'next/image'
 import Link from 'next/link'
 import placeholder from '@/assets/placeholder.svg'
-import productsData from '@/assets/productsTemp.json'
 import { getCategories, getProducts } from '@/server/utils/getData'
 
 export default async function Search() {
