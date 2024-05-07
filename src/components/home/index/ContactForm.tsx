@@ -55,7 +55,7 @@ export default function ContactForm() {
             className='p-4 rounded focus:outline-none focus:ring focus:border-blue-500 text-black'
           ></textarea>
         </div>
-        <div>
+        <div className='w-full flex justify-end my-4 md:my-0'>
           <input
             type='submit'
             value='Send message'
