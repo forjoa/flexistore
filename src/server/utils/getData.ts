@@ -17,10 +17,10 @@ export const getAboutData = async (): Promise<{ data: AboutData | null }> => {
 
 }
 
-export const getCategories = async (): Promise<{ data: Categories[] | null}> =>{
+export const getCategories = async (): Promise<{ categories: Categories[] | null}> =>{
   const { data, error } = await supabase.from('categories').select('*').neq('category_id', 0)
 
-  if (error) return { data: null }
+  if (error) return { categories: null }
 
-  return { data: data }
+  return { categories: data }
 }
