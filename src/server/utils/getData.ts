@@ -17,10 +17,18 @@ export const getAboutData = async (): Promise<{ data: AboutData | null }> => {
 
 }
 
-export const getCategories = async (): Promise<{ categories: Categories[] | null}> =>{
+export const getCategories = async (): Promise<{ categories: Category[] | null}> =>{
   const { data, error } = await supabase.from('categories').select('*').neq('category_id', 0)
 
   if (error) return { categories: null }
 
   return { categories: data }
+}
+
+export const getProducts = async (): Promise<{ products: Product[] | null}> => {
+  const { data, error } = await supabase.from('products').select('*').neq('product_id', 0)
+
+  if (error) return { products: null }
+
+  return { products: data }
 }
