@@ -13,3 +13,9 @@ interface ContactData {
   email: string
   message: string
 }
+
+interface Categories {
+  category_id?: number
+  name: string
+  created_at?: string
+}
