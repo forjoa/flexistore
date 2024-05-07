@@ -14,8 +14,23 @@ interface ContactData {
   message: string
 }
 
-interface Categories {
+interface Category {
   category_id?: number
   name: string
   created_at?: string
+}
+
+interface Product {
+  product_id: number;
+  name: string;
+  description: string;
+  price: number;
+  cost: number;
+  size?: string | null;
+  stock: number;
+  weight?: number | null;
+  created_at: string; 
+  bar_code: string;
+  category_id: number;
+  discount_id?: number | null;
 }
