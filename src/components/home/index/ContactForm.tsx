@@ -1,6 +1,6 @@
 'use client'
 import { sendContactMessage } from '@/server/utils/functions'
-import { FormEvent, FormEventHandler } from 'react'
+import { FormEvent, FormEventHandler, useState } from 'react'
 import { Toaster, toast } from 'sonner'
 
 export default function ContactForm() {
@@ -14,9 +14,9 @@ export default function ContactForm() {
     const result = await sendContactMessage(data)
 
     if (result) {
-        toast.success('Message sent correctly!')
+      toast.success('Message sent correctly!')
     } else {
-        toast.error('Something went wrong while sending the message')
+      toast.error('Something went wrong while sending the message')
     }
   }
 
@@ -32,7 +32,7 @@ export default function ContactForm() {
             placeholder='Enter your name'
             autoComplete='name'
             id='name'
-            className='p-4 rounded focus:outline-none focus:ring focus:border-blue-500 text-black'
+            className='p-4 rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-950'            
           />
         </div>
         <div className='flex flex-col gap-2'>
@@ -43,7 +43,7 @@ export default function ContactForm() {
             placeholder='Enter your email'
             autoComplete='email'
             id='email'
-            className='p-4 rounded focus:outline-none focus:ring focus:border-blue-500 text-black'
+            className='p-4 rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-950'            
           />
         </div>
         <div className='flex flex-col gap-2'>
@@ -52,7 +52,7 @@ export default function ContactForm() {
             name='message'
             placeholder='Enter your message'
             id='message'
-            className='p-4 rounded focus:outline-none focus:ring focus:border-blue-500 text-black'
+            className='p-4 rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-950'            
           ></textarea>
         </div>
         <div className='w-full flex justify-end my-4 md:my-0'>
