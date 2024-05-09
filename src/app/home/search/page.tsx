@@ -4,18 +4,17 @@ import Image from 'next/image'
 import Link from 'next/link'
 import placeholder from '@/assets/placeholder.svg'
 import { getCategories, getProducts } from '@/server/utils/getData'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, ChangeEvent } from 'react'
 import { Toaster, toast } from 'sonner'
 import { SearchIcon } from '@/assets/icons'
 
 export default function Search() {
   const [categories, setCategories] = useState<Category[]>([])
   const [products, setProducts] = useState<Product[]>([])
-  const [loading, setLoading] = useState<boolean>(true)
+  const [searching, setSearching] = useState<string>('')
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true)
       try {
         const { categories } = await getCategories()
         setCategories(categories || [])
@@ -23,14 +22,19 @@ export default function Search() {
         const { products } = await getProducts()
         setProducts(products || [])
       } catch (error) {
-        setLoading(false)
         toast.error('Error fetching data')
       }
-      setLoading(false)
     }
 
     fetchData()
   }, [])
+
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+
+    console.log(e.target.value)
+    setSearching(e.target.value)
+  }
 
   return (
     <Main>
@@ -42,7 +46,7 @@ export default function Search() {
             <div>
               <h3 className='text-sm font-medium mb-2'>Category</h3>
               <div className='space-y-2'>
-                {loading && <p>Loading categories...</p>}
+                {categories.length == 0 && <p>Loading categories...</p>}
                 {categories.map((category, index) => (
                   <label
                     key={index}
@@ -73,12 +77,14 @@ export default function Search() {
                   className='w-full shadow-none appearance-none pl-8 md:w-2/3 lg:w-1/3 bg-transparent outline-none'
                   placeholder='Search products...'
                   type='search'
+                  value={searching}
+                  onChange={handleSearch}
                 />
               </div>
             </form>
           </div>
           <div className='flex flex-wrap justify-between gap-6'>
-            {loading && <p>Loading products...</p>}
+            {products.length == 0 && <p>Loading products...</p>}
             {products.map((product, index) => (
               <div
                 key={index}
