@@ -1,18 +1,17 @@
 'use client'
 import Main from '@/components/home/globals/Main'
-import Image from 'next/image'
-import Link from 'next/link'
-import placeholder from '@/assets/placeholder.svg'
 import { getCategories, getProducts } from '@/server/utils/getData'
 import { useState, useEffect, ChangeEvent } from 'react'
 import { Toaster, toast } from 'sonner'
-import { SearchIcon } from '@/assets/icons'
+import ProductList from '@/components/home/search/ProductsList'
+import CategoryFilter from '@/components/home/search/CategoryFilter'
+import Searching from '@/components/home/search/Searching'
 
 export default function Search() {
   const [categories, setCategories] = useState<Category[]>([])
   const [products, setProducts] = useState<Product[]>([])
   const [searching, setSearching] = useState<string>('')
-  const [filterCategory, setFilterCategory] = useState<number | undefined>(0) // Default to 'All'
+  const [filterCategory, setFilterCategory] = useState<number | undefined>(0)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,7 +20,7 @@ export default function Search() {
         setCategories([
           { category_id: 0, name: 'All' },
           ...(categories as Array<Category>),
-        ]) // Add 'All' category
+        ])
 
         const { products } = await getProducts()
         setProducts(products || [])
@@ -44,79 +43,23 @@ export default function Search() {
         <div className='bg-gray-100/40 dark:bg-gray-800/40 rounded-lg p-6 hidden md:block'>
           <h2 className='text-lg font-semibold mb-4'>Filters</h2>
           <div className='space-y-6'>
-            <div>
-              <h3 className='text-sm font-medium mb-2'>Category</h3>
-              <div className='space-y-2'>
-                {categories.length === 0 && <p>Loading categories...</p>}
-                {categories.map((category, index) => (
-                  <label
-                    key={index}
-                    className='flex items-center gap-2 text-sm'
-                  >
-                    <input
-                      type='radio'
-                      id={`${category.category_id}`}
-                      name='category'
-                      onClick={() => setFilterCategory(category.category_id)}
-                      checked={filterCategory === category.category_id}
-                    />
-                    {category.name}
-                  </label>
-                ))}
-              </div>
-            </div>
+            <CategoryFilter
+              categories={categories}
+              filterCategory={filterCategory}
+              setFilterCategory={setFilterCategory}
+            />
           </div>
         </div>
         <div>
-          <div className='bg-gray-100/40 dark:bg-gray-800/40 rounded-lg p-6 mb-6'>
-            <form className='w-full'>
-              <div className='relative flex items-center w-full'>
-                <SearchIcon className='absolute left-2.5 h-4 w-4 text-gray-500 dark:text-gray-400' />
-                <input
-                  className='w-full shadow-none appearance-none pl-8 bg-transparent outline-none'
-                  placeholder='Search products...'
-                  type='search'
-                  value={searching}
-                  onChange={handleSearch}
-                />
-              </div>
-            </form>
-          </div>
-          <div className='flex flex-wrap justify-between gap-6'>
-            {products.length === 0 && <p>Loading products...</p>}
-            {products
-              .filter(
-                (product) =>
-                  (product.name
-                    .toLowerCase()
-                    .includes(searching.toLowerCase()) ||
-                    !searching) &&
-                  (filterCategory === 0 ||
-                    product.category_id === filterCategory)
-              )
-              .map((product, index) => (
-                <div
-                  key={index}
-                  className='bg-white dark:bg-gray-950 rounded-lg shadow-sm hover:shadow-lg transition-shadow w-full md:max-w-[250px]'
-                >
-                  <Link href='#'>
-                    <Image
-                      alt={product.name}
-                      className='w-full h-60 object-cover rounded-t-lg flex-grow-1'
-                      src={placeholder}
-                    />
-                    <div className='p-4'>
-                      <h3 className='text-lg font-semibold mb-2'>
-                        {product.name}
-                      </h3>
-                      <p className='text-gray-500 dark:text-gray-400 text-sm mb-2'>
-                        ${product.price.toFixed(2)}
-                      </p>
-                    </div>
-                  </Link>
-                </div>
-              ))}
-          </div>
+          <Searching 
+            searching={searching} 
+            handleSearch={handleSearch} 
+          />
+          <ProductList
+            products={products}
+            searching={searching}
+            filterCategory={filterCategory}
+          />
         </div>
       </div>
     </Main>
