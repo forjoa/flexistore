@@ -1,14 +1,39 @@
+'use client'
 import Main from '@/components/home/globals/Main'
 import Image from 'next/image'
 import Link from 'next/link'
 import placeholder from '@/assets/placeholder.svg'
 import { getCategories, getProducts } from '@/server/utils/getData'
+import { useState, useEffect } from 'react'
+import { Toaster, toast } from 'sonner'
 
-export default async function Search() {
-  const { categories } = await getCategories()
-  const { products } = await getProducts()
+export default function Search() {
+  const [categories, setCategories] = useState<Category[]>([])
+  const [products, setProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true)
+      try {
+        const categoriesData = await getCategories()
+        setCategories(categoriesData.categories || [])
+
+        const productsData = await getProducts()
+        setProducts(productsData.products || [])
+      } catch (error) {
+        setLoading(false)
+        toast.error('Error fetching data')
+      }
+      setLoading(false)
+    }
+
+    fetchData()
+  }, [])
+
   return (
     <Main>
+      <Toaster />
       <div className='grid grid-cols-[280px_1fr] gap-6 p-6'>
         <div className='bg-gray-100/40 dark:bg-gray-800/40 rounded-lg p-6 hidden md:block'>
           <h2 className='text-lg font-semibold mb-4'>Filters</h2>
@@ -16,21 +41,20 @@ export default async function Search() {
             <div>
               <h3 className='text-sm font-medium mb-2'>Category</h3>
               <div className='space-y-2'>
-                {categories?.map((category, index) => {
-                  return (
-                    <label
-                      key={index}
-                      className='flex items-center gap-2 text-sm'
-                    >
-                      <input
-                        type='checkbox'
-                        id='category-clothing'
-                        name='category'
-                      />
-                      {category.name}
-                    </label>
-                  )
-                })}
+                {loading && <p>Loading categories...</p>}
+                {categories.map((category, index) => (
+                  <label
+                    key={index}
+                    className='flex items-center gap-2 text-sm'
+                  >
+                    <input
+                      type='checkbox'
+                      id='category-clothing'
+                      name='category'
+                    />
+                    {category.name}
+                  </label>
+                ))}
               </div>
             </div>
             <div>
@@ -53,7 +77,8 @@ export default async function Search() {
             </form>
           </div>
           <div className='flex flex-wrap justify-between gap-6'>
-            {products?.map((product, index) => (
+            {loading && <p>Loading products...</p>}
+            {products.map((product, index) => (
               <div
                 key={index}
                 className='bg-white dark:bg-gray-950 rounded-lg shadow-sm hover:shadow-lg transition-shadow'
