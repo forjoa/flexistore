@@ -16,11 +16,11 @@ export default function Search() {
     const fetchData = async () => {
       setLoading(true)
       try {
-        const categoriesData = await getCategories()
-        setCategories(categoriesData.categories || [])
+        const { categories } = await getCategories()
+        setCategories(categories || [])
 
-        const productsData = await getProducts()
-        setProducts(productsData.products || [])
+        const { products } = await getProducts()
+        setProducts(products || [])
       } catch (error) {
         setLoading(false)
         toast.error('Error fetching data')
@@ -81,7 +81,7 @@ export default function Search() {
             {products.map((product, index) => (
               <div
                 key={index}
-                className='bg-white dark:bg-gray-950 rounded-lg shadow-sm hover:shadow-lg transition-shadow'
+                className='bg-white dark:bg-gray-950 rounded-lg shadow-sm hover:shadow-lg transition-shadow w-full md:max-w-[250px]'
               >
                 <Link href='#'>
                   <Image
