@@ -7,6 +7,7 @@ import ProductList from '@/components/home/search/ProductsList'
 import CategoryFilter from '@/components/home/search/CategoryFilter'
 import Searching from '@/components/home/search/Searching'
 import Footer from '@/components/home/globals/Footer'
+import ScrollToTopButton from '@/components/home/search/ScrollButton'
 
 export default function Search() {
   const [categories, setCategories] = useState<Category[]>([])
@@ -60,6 +61,7 @@ export default function Search() {
           />
         </div>
       </div>
+      <ScrollToTopButton />
       <Footer />
     </Main>
   )
