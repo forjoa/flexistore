@@ -36,14 +36,14 @@ interface Product {
 }
 
 interface Client {
-  client_id: number
+  client_id?: number
   name: string
   lastname: string
-  address: string
+  address?: string
   email: string
   password: string
-  phone: string
-  created_at: Date
-  birth_date: Date
-  dni: string
+  phone?: string
+  created_at?: Date
+  birth_date?: Date
+  dni?: string
 }
