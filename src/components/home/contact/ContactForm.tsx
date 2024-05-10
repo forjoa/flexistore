@@ -1,20 +1,29 @@
 'use client'
 import { sendContactMessage } from '@/server/utils/functions'
-import { FormEvent, FormEventHandler } from 'react'
+import { FormEvent, FormEventHandler, useState } from 'react'
 import { Toaster, toast } from 'sonner'
 
 export default function ContactForm() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+
   const onSubmit: FormEventHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const data: ContactData = Object.fromEntries(
-      new FormData(e.target as HTMLFormElement).entries()
-    ) as unknown as ContactData
+    const data: ContactData = {
+      name,
+      email,
+      message,
+    }
 
     const result = await sendContactMessage(data)
 
     if (result) {
       toast.success('Message sent correctly!')
+      setName('')
+      setEmail('')
+      setMessage('')
     } else {
       toast.error('Something went wrong while sending the message')
     }
@@ -32,7 +41,9 @@ export default function ContactForm() {
             placeholder='Enter your name'
             autoComplete='name'
             id='name'
-            className='p-4 rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-950'            
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className='p-4 rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-950'
           />
         </div>
         <div className='flex flex-col gap-2'>
@@ -43,7 +54,9 @@ export default function ContactForm() {
             placeholder='Enter your email'
             autoComplete='email'
             id='email'
-            className='p-4 rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-950'            
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className='p-4 rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-950'
           />
         </div>
         <div className='flex flex-col gap-2'>
@@ -52,7 +65,9 @@ export default function ContactForm() {
             name='message'
             placeholder='Enter your message'
             id='message'
-            className='p-4 rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-950'            
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            className='p-4 rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-950'
           ></textarea>
         </div>
         <div className='w-full flex justify-end my-4 md:my-0'>
