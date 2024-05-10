@@ -41,9 +41,9 @@ export default function Search() {
     <Main>
       <Toaster />
       <div className='grid grid-cols-[280px_1fr] gap-6 p-6'>
-        <div className='bg-gray-100/40 dark:bg-gray-800/40 rounded-lg p-6 hidden md:block'>
-          <h2 className='text-lg font-semibold mb-4'>Filters</h2>
-          <div className='space-y-6'>
+        <div className='relative bg-gray-100/40 dark:bg-gray-800/40 rounded-lg p-6 hidden md:block'>
+          <div className='space-y-6 sticky top-[135px]'>
+            <h2 className='text-lg font-semibold mb-4'>Filters</h2>
             <CategoryFilter
               categories={categories}
               filterCategory={filterCategory}
@@ -52,10 +52,7 @@ export default function Search() {
           </div>
         </div>
         <div>
-          <Searching 
-            searching={searching} 
-            handleSearch={handleSearch} 
-          />
+          <Searching searching={searching} handleSearch={handleSearch} />
           <ProductList
             products={products}
             searching={searching}
