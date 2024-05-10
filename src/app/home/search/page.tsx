@@ -6,6 +6,7 @@ import { Toaster, toast } from 'sonner'
 import ProductList from '@/components/home/search/ProductsList'
 import CategoryFilter from '@/components/home/search/CategoryFilter'
 import Searching from '@/components/home/search/Searching'
+import Footer from '@/components/home/index/Footer'
 
 export default function Search() {
   const [categories, setCategories] = useState<Category[]>([])
@@ -62,6 +63,7 @@ export default function Search() {
           />
         </div>
       </div>
+      <Footer />
     </Main>
   )
 }
