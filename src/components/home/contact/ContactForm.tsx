@@ -1,6 +1,6 @@
 'use client'
 import { sendContactMessage } from '@/server/utils/functions'
-import { FormEvent, FormEventHandler, useState } from 'react'
+import { FormEvent, FormEventHandler } from 'react'
 import { Toaster, toast } from 'sonner'
 
 export default function ContactForm() {
