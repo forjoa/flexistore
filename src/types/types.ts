@@ -21,16 +21,29 @@ interface Category {
 }
 
 interface Product {
-  product_id: number;
-  name: string;
-  description: string;
-  price: number;
-  cost: number;
-  size?: string | null;
-  stock: number;
-  weight?: number | null;
-  created_at: string; 
-  bar_code: string;
-  category_id: number;
-  discount_id?: number | null;
+  product_id: number
+  name: string
+  description: string
+  price: number
+  cost: number
+  size?: string | null
+  stock: number
+  weight?: number | null
+  created_at: string
+  bar_code: string
+  category_id: number
+  discount_id?: number | null
+}
+
+interface Client {
+  client_id: number
+  name: string
+  lastname: string
+  address: string
+  email: string
+  password: string
+  phone: string
+  created_at: Date
+  birth_date: Date
+  dni: string
 }
