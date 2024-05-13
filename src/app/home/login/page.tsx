@@ -1,8 +1,10 @@
 'use client'
 import Footer from '@/components/home/globals/Footer'
 import Main from '@/components/home/globals/Main'
+import { login } from '@/server/lib/auth'
 import Link from 'next/link'
 import { useState } from 'react'
+import { Toaster, toast } from 'sonner'
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -16,10 +18,32 @@ export default function Login() {
       [e.target.id]: e.target.value,
     })
   }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    toast.loading('Loading...')
+
+    e.preventDefault()
+
+    const { success, error, user } = await login(formData)
+
+    if (!success) {
+      toast.error(error)
+      return
+    }
+
+    delete user.password
+
+    sessionStorage.setItem('user', JSON.stringify(user))
+  }
+
   return (
     <Main>
+      <Toaster />
       <main className='flex w-full h-[calc(100vh-200px)] items-center justify-center '>
-        <form className='w-full max-w-md border border-gray-900 p-8 flex flex-col gap-4 rounded'>
+        <form
+          className='w-full max-w-md border border-gray-900 p-8 flex flex-col gap-4 rounded'
+          onSubmit={handleSubmit}
+        >
           <div className='flex flex-col gap-4'>
             <h2 className='text-2xl font-bold'>Login</h2>
             <p className='text-gray-400'>
