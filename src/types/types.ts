@@ -37,8 +37,8 @@ interface Product {
 
 interface Client {
   client_id?: number
-  name: string
-  lastname: string
+  name?: string
+  lastname?: string
   address?: string
   email: string
   password: string
