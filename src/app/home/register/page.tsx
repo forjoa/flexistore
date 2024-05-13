@@ -39,7 +39,7 @@ const RegistrationForm = () => {
   return (
     <Main>
       <Toaster />
-      <main className='flex w-full h-[calc(100vh-200px)] items-center justify-center'>
+      <main className='flex w-full md:h-[calc(100vh-200px)] items-center justify-center'>
         <form
           onSubmit={handleSubmit}
           className='w-full max-w-md border border-gray-900 p-8 flex flex-col gap-4 rounded'
