@@ -1,8 +1,21 @@
+'use client'
 import Footer from '@/components/home/globals/Footer'
 import Main from '@/components/home/globals/Main'
 import Link from 'next/link'
+import { useState } from 'react'
 
 export default function Login() {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    })
+  }
   return (
     <Main>
       <main className='flex w-full h-[calc(100vh-200px)] items-center justify-center '>
@@ -22,6 +35,7 @@ export default function Login() {
                 required
                 type='email'
                 autoComplete='username'
+                onChange={handleChange}
                 className='p-4 rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-950'
               />
             </div>
@@ -31,6 +45,7 @@ export default function Login() {
                 id='password'
                 required
                 type='password'
+                onChange={handleChange}
                 autoComplete='current-password'
                 className='p-4 rounded focus:outline-none focus:ring focus:border-blue-500 bg-gray-950'
               />
