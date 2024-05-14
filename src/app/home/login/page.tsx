@@ -5,8 +5,10 @@ import { login } from '@/server/lib/auth'
 import Link from 'next/link'
 import { useState } from 'react'
 import { Toaster, toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
 export default function Login() {
+  const router = useRouter()
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -32,8 +34,8 @@ export default function Login() {
     }
 
     delete user.password
-
     sessionStorage.setItem('user', JSON.stringify(user))
+    router.push('/home/userProfile')
   }
 
   return (
