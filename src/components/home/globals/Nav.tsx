@@ -18,8 +18,10 @@ export default function Nav() {
   }
 
   const logout = () => {
-    window.sessionStorage.removeItem('user')
-    window.location.reload()
+    if (typeof window !== 'undefined') {
+      window.sessionStorage.removeItem('user')
+      window.location.reload()
+    }
   }
 
   return (
