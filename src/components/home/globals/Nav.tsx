@@ -3,13 +3,23 @@ import { useState } from 'react'
 import Image from 'next/image'
 import flexiLogo from '../../../../public/flexiLogo.svg'
 import close from '@/assets/x.svg'
+import userIcon from '@/assets/user.svg'
+import logoutIcon from '@/assets/logout.svg'
 import Link from 'next/link'
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const user: Client = sessionStorage.getItem('user')
+    ? JSON.parse(sessionStorage.getItem('user') || '')
+    : null
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
+  }
+
+  const logout = () => {
+    sessionStorage.removeItem('user')
+    window.location.reload()
   }
 
   return (
@@ -44,12 +54,35 @@ export default function Nav() {
         <li className='h-[60%] w-full cursor-pointer rounded px-4 py-2 transition-all hover:bg-gray-700 md:mb-0 md:h-auto md:bg-transparent md:px-4 grid place-items-center'>
           <Link href='/home/contact'>Contact</Link>
         </li>
-        <li className='h-[60%] w-full cursor-pointer rounded bg-white px-4 text-black transition-all hover:opacity-50 md:mb-0 md:h-auto md:px-4 md:py-2 grid place-items-center'>
-          <Link href='/home/login'>Login</Link>
-        </li>
-        <li className='h-[60%] w-full cursor-pointer rounded px-4 py-2 underline transition-all hover:bg-gray-200 md:h-auto md:px-4 grid place-items-center'>
-          <Link href='/home/register'>Register</Link>
-        </li>
+        {user == null || user == undefined ? (
+          <>
+            <li className='h-[60%] w-full cursor-pointer rounded bg-white px-4 text-black transition-all hover:opacity-50 md:mb-0 md:h-auto md:px-4 md:py-2 grid place-items-center'>
+              <Link href='/home/login'>Login</Link>
+            </li>
+            <li className='h-[60%] w-full cursor-pointer rounded px-4 py-2 underline transition-all hover:bg-gray-200 md:h-auto md:px-4 grid place-items-center'>
+              <Link href='/home/register'>Register</Link>
+            </li>
+          </>
+        ) : (
+          <>
+            <li className='h-[60%] w-full cursor-pointer rounded bg-white px-4 text-black transition-all hover:opacity-50 md:mb-0 md:h-auto md:px-6 md:py-2 flex justify-center items-center'>
+              <Link
+                href='/home/userProfile'
+                className='flex justify-center items-center'
+              >
+                <Image src={userIcon} alt='User icon' />
+                Joaquin
+              </Link>
+            </li>
+            <li
+              onClick={logout}
+              className='h-[60%] w-full cursor-pointer rounded px-4 py-2 transition-all hover:bg-red-500 hover:bg-opacity-50 md:mb-0 md:h-auto md:bg-transparent md:px-6 flex justify-center items-center text-red-600 '
+            >
+              <Image src={logoutIcon} alt='Logout icon' />
+              Exit
+            </li>
+          </>
+        )}
       </ul>
       {menuOpen && (
         <button
