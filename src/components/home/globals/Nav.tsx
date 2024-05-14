@@ -33,7 +33,7 @@ export default function Nav() {
   }
 
   return (
-    <nav className='fixed top-0 left-0 z-10 flex w-full items-center justify-between bg-black bg-opacity-50 px-10 py-4 backdrop-blur-xl md:bg-transparent'>
+    <nav className='fixed top-0 left-0 z-10 flex w-full items-center justify-between bg-black bg-opacity-50 px-10 py-4 backdrop-blur-xl md:bg-transparent border-b border-slate-800'>
       <Link href='/home' className='flex items-center gap-2'>
         <Image src={flexiLogo} alt='Logo' className='h-8 w-8' />
         <h1 className='text-3xl font-bold'>FlexiStore</h1>
