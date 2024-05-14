@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import flexiLogo from '../../../../public/flexiLogo.svg'
 import close from '@/assets/x.svg'
@@ -9,9 +9,17 @@ import Link from 'next/link'
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const user: Client = window.sessionStorage.getItem('user')
-    ? JSON.parse(window.sessionStorage.getItem('user') || '')
-    : null
+  const [user, setUser] = useState<Client>()
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setUser(
+        window.sessionStorage.getItem('user')
+          ? JSON.parse(window.sessionStorage.getItem('user') || '')
+          : null
+      )
+    }
+  }, [])
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
