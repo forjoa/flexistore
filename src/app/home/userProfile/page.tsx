@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 
 export default function UserProfile() {
   const router = useRouter()
-  const user: Client = sessionStorage.getItem('user')
+  const user: Client = window.sessionStorage.getItem('user')
     ? JSON.parse(sessionStorage.getItem('user') || '')
     : null
 

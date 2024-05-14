@@ -9,8 +9,8 @@ import Link from 'next/link'
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const user: Client = sessionStorage.getItem('user')
-    ? JSON.parse(sessionStorage.getItem('user') || '')
+  const user: Client = window.sessionStorage.getItem('user')
+    ? JSON.parse(window.sessionStorage.getItem('user') || '')
     : null
 
   const toggleMenu = () => {
@@ -18,7 +18,7 @@ export default function Nav() {
   }
 
   const logout = () => {
-    sessionStorage.removeItem('user')
+    window.sessionStorage.removeItem('user')
     window.location.reload()
   }
 

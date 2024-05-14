@@ -34,7 +34,7 @@ export default function Login() {
     }
 
     delete user.password
-    sessionStorage.setItem('user', JSON.stringify(user))
+    window.sessionStorage.setItem('user', JSON.stringify(user))
     router.push('/home/userProfile')
   }
 
