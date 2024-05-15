@@ -1,4 +1,5 @@
 'use client'
+import Footer from '@/components/home/globals/Footer'
 import Main from '@/components/home/globals/Main'
 import UserInfoCard from '@/components/home/userProfile/UserInfoCard'
 import UserNav from '@/components/home/userProfile/UserNav'
@@ -25,6 +26,7 @@ export default function UserProfileLayout({ children } : { children: ReactNode }
       <UserInfoCard user={user} />
       <UserNav />
       {children}
+      <Footer />
     </Main>
   )
 }
