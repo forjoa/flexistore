@@ -1,27 +1,59 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { updateClientInformation } from '@/server/utils/functions'
+import { FormEvent, useEffect, useState } from 'react'
+import { Toaster, toast } from 'sonner'
 
 export default function UserProfile() {
-  const [user, setUser] = useState<Client>()
+  const [user, setUser] = useState<Client>({
+    name: '',
+    lastname: '',
+    address: '',
+    email: '',
+    phone: '',
+    birth_date: undefined,
+    dni: '',
+  })
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setUser(
-        window.sessionStorage.getItem('user')
-          ? JSON.parse(window.sessionStorage.getItem('user') || '')
-          : null
-      )
+      const storedUser = window.sessionStorage.getItem('user')
+      if (storedUser) {
+        setUser(JSON.parse(storedUser))
+      }
     }
   }, [])
 
-  console.log(user)
-  
+  const handleInputChange = ( e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) => {
+    const { id, value } = e.target
+    setUser((prevUser) => ({
+      ...prevUser,
+      [id]: value,
+    }))
+  }
+
+  const handleSubmitForm = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    const { success, error } = await updateClientInformation(user)
+
+    if (success) {
+      if (typeof window !== 'undefined') {
+        window.sessionStorage.setItem('user', JSON.stringify(user))
+        toast.success('Information updated correctly')
+        window.location.reload()
+      }
+    } else {
+      toast.error(error)
+    }
+  }
+
   return (
     <div className='w-full max-w-2xl shadow-md rounded-lg overflow-hidden block m-auto'>
+      <Toaster />
       <div className='p-4'>
         <p>Update your personal details.</p>
       </div>
-      <form className='grid gap-4 p-4'>
+      <form className='grid gap-4 p-4' onSubmit={handleSubmitForm}>
         <div className='grid grid-cols-2 gap-4'>
           <div className='space-y-2'>
             <label htmlFor='name' className='block font-medium'>
@@ -32,7 +64,8 @@ export default function UserProfile() {
               className='w-full border border-gray-800 bg-transparent p-4 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500'
               type='text'
               placeholder='Enter your name'
-              value={user?.name}
+              value={user.name}
+              onChange={handleInputChange}
             />
           </div>
           <div className='space-y-2'>
@@ -44,7 +77,8 @@ export default function UserProfile() {
               className='w-full border border-gray-800 bg-transparent p-4 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500'
               type='text'
               placeholder='Enter your last name'
-              value={user?.lastname}
+              value={user.lastname}
+              onChange={handleInputChange}
             />
           </div>
         </div>
@@ -56,7 +90,8 @@ export default function UserProfile() {
             id='address'
             className='w-full border border-gray-800 bg-transparent p-4 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 min-h-32'
             placeholder='Enter your address'
-            value={user?.address}
+            value={user.address}
+            onChange={handleInputChange}
           ></textarea>
         </div>
         <div className='grid grid-cols-2 gap-4'>
@@ -69,7 +104,8 @@ export default function UserProfile() {
               className='w-full border border-gray-800 bg-transparent p-4 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500'
               type='email'
               placeholder='Enter your email'
-              value={user?.email}
+              value={user.email}
+              onChange={handleInputChange}
             />
           </div>
           <div className='space-y-2'>
@@ -80,7 +116,8 @@ export default function UserProfile() {
               id='phone'
               className='w-full border border-gray-800 bg-transparent p-4 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500'
               placeholder='Enter your phone number'
-              value={user?.phone}
+              value={user.phone}
+              onChange={handleInputChange}
             />
           </div>
         </div>
@@ -94,6 +131,7 @@ export default function UserProfile() {
               className='w-full border border-gray-800 bg-transparent p-4 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500'
               type='date'
               value={user?.birth_date?.toString()}
+              onChange={handleInputChange}
             />
           </div>
           <div className='space-y-2'>
@@ -104,7 +142,8 @@ export default function UserProfile() {
               id='dni'
               className='w-full border border-gray-800 bg-transparent p-4 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500'
               placeholder='Enter your DNI'
-              value={user?.dni}
+              value={user.dni}
+              onChange={handleInputChange}
             />
           </div>
         </div>
