@@ -31,3 +31,20 @@ export async function insertNewClient(client: Client) {
 
   return { success: true }
 }
+
+export async function updateClientInformation(client: Client) {
+  const { name, lastname, address, email, phone, birth_date, dni, client_id } = client
+
+  try {
+    const { error } = await supabase
+      .from('clients')
+      .update({ name, lastname, address, email, phone, birth_date, dni })
+      .eq('client_id', client_id)
+      
+    if (error) return { success: false, error: error.details }
+  } catch (er: any) {
+    return { success: false, error: er as string }
+  }
+
+  return { success: true }
+}
