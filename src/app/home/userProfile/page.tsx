@@ -38,9 +38,12 @@ export default function UserProfile() {
 
     if (success) {
       if (typeof window !== 'undefined') {
-        window.sessionStorage.setItem('user', JSON.stringify(user))
         toast.success('Information updated correctly')
-        window.location.reload()
+
+        setTimeout(() => {
+          window.sessionStorage.setItem('user', JSON.stringify(user))
+          window.location.reload()
+        }, 3000)
       }
     } else {
       toast.error(error)
