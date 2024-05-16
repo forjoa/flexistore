@@ -81,7 +81,7 @@ export default function Nav() {
                 className='flex justify-center items-center'
               >
                 <Image src={userIcon} alt='User icon' />
-                Joaquin
+                {user.name}
               </Link>
             </li>
             <li
