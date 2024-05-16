@@ -54,6 +54,7 @@ export default function Nav() {
               : 'translate-x-full md:-translate-x-48 md:flex md:items-center md:bg-transparent md:p-0 md:flex-row md:h-full md:gap-4'
           }
         `}
+        onClick={() => setMenuOpen(false)}
       >
         <li className='h-[60%] w-full cursor-pointer rounded px-4 py-2 transition-all hover:bg-gray-700 md:mb-0 md:h-auto md:bg-transparent md:px-4 grid place-items-center'>
           <Link href='/home'>Home</Link>
