@@ -41,7 +41,7 @@ interface Client {
   lastname?: string
   address?: string
   email: string
-  password: string
+  password?: string
   phone?: string
   created_at?: Date
   birth_date?: Date
