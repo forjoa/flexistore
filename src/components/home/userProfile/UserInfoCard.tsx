@@ -35,7 +35,7 @@ export default function UserInfoCard({ user }: { user: Client | undefined }) {
         <p className='flex gap-2'>
           <CalendarIcon />
           {user?.birth_date
-            ? user.birth_date.toDateString()
+            ? user.birth_date.toString()
             : 'Birth date not provided'}
         </p>
       </div>
