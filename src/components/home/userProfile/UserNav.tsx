@@ -11,7 +11,7 @@ export default function UserNav() {
           <li>
             <Link
               href='/home/userProfile'
-              className={`py-2 px-4 rounded transition-all hover:bg-white hover:bg-opacity-50 ${currentRoute === 'userProfile' ? 'bg-white bg-opacity-30' : ''}`}
+              className={`py-2 px-4 rounded transition-all hover:bg-gray-800 hover:bg-opacity-80 ${currentRoute === 'userProfile' ? 'bg-gray-800 bg-opacity-60' : ''}`}
             >
               General information
             </Link>
@@ -19,7 +19,7 @@ export default function UserNav() {
           <li>
             <Link
               href='/home/userProfile/orders'
-              className={`py-2 px-4 rounded transition-all hover:bg-white hover:bg-opacity-50 ${currentRoute === 'orders' ? 'bg-white bg-opacity-30' : ''}`}
+              className={`py-2 px-4 rounded transition-all hover:bg-gray-800 hover:bg-opacity-80 ${currentRoute === 'orders' ? 'bg-gray-800 bg-opacity-60' : ''}`}
             >
               Orders
             </Link>
